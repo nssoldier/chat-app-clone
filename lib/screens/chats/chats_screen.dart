@@ -53,7 +53,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
 
   AppBar buildAppBar() {
     return AppBar(
-      automaticallyImplyLeading: false,
+      automaticallyImplyLeading: true,
       title: Text("Chats"),
       actions: [
         IconButton(

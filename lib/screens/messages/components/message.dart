@@ -1,3 +1,4 @@
+import 'package:chat/models/Chat.dart';
 import 'package:chat/models/ChatMessage.dart';
 import 'package:flutter/material.dart';
 
@@ -10,9 +11,11 @@ class Message extends StatelessWidget {
   const Message({
     Key? key,
     required this.message,
+    required this.conversation,
   }) : super(key: key);
 
   final ChatMessage message;
+  final Chat conversation;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +41,7 @@ class Message extends StatelessWidget {
           if (!message.isSender) ...[
             CircleAvatar(
               radius: 12,
-              backgroundImage: AssetImage("assets/images/user_2.png"),
+              backgroundImage: AssetImage(conversation.image),
             ),
             SizedBox(width: kDefaultPadding / 2),
           ],

@@ -1,14 +1,19 @@
 import 'package:chat/constants.dart';
+import 'package:chat/models/Chat.dart';
 import 'package:flutter/material.dart';
 
 import 'components/body.dart';
 
 class MessagesScreen extends StatelessWidget {
+  final Chat conversation;
+  const MessagesScreen({Key? key, required this.conversation})
+      : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(),
-      body: Body(),
+      body: Body(conversation: conversation),
     );
   }
 
@@ -19,18 +24,18 @@ class MessagesScreen extends StatelessWidget {
         children: [
           BackButton(),
           CircleAvatar(
-            backgroundImage: AssetImage("assets/images/user_2.png"),
+            backgroundImage: AssetImage(conversation.image),
           ),
           SizedBox(width: kDefaultPadding * 0.75),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Kristin Watson",
+                conversation.name,
                 style: TextStyle(fontSize: 16),
               ),
               Text(
-                "Active 3m ago",
+                conversation.isActive ? "Active" : "Active 3m ago",
                 style: TextStyle(fontSize: 12),
               )
             ],

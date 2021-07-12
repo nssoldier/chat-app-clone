@@ -1,11 +1,14 @@
+import 'package:chat/models/ChatMessage.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
 
 class ChatInputField extends StatelessWidget {
-  const ChatInputField({
-    Key? key,
-  }) : super(key: key);
+  final dynamic addMessage;
+  final dynamic scrollToBottom;
+  const ChatInputField({Key? key, this.addMessage, this.scrollToBottom})
+      : super(key: key);
+  static TextEditingController _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -51,10 +54,21 @@ class ChatInputField extends StatelessWidget {
                     SizedBox(width: kDefaultPadding / 4),
                     Expanded(
                       child: TextField(
+                        controller: _controller,
                         decoration: InputDecoration(
                           hintText: "Type message",
                           border: InputBorder.none,
                         ),
+                        onSubmitted: (text) {
+                          addMessage(ChatMessage(
+                            text: text,
+                            messageType: ChatMessageType.text,
+                            messageStatus: MessageStatus.viewed,
+                            isSender: true,
+                          ));
+                          scrollToBottom();
+                          _controller.clear();
+                        },
                       ),
                     ),
                     Icon(
